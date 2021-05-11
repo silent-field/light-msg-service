@@ -29,22 +29,22 @@ public enum MessageType implements Dict<Integer> {
 	 *
 	 * 1~14是MQTT相关协议定义
 	 */
-	INITIAL(0, "初始"),
-	CONNECT(1, "连接请求"),
-	CONNACK(2, "确认连接请求"),
+	INITIAL(0, "初始(保留,非MQTT协议要求)"),
+	CONNECT(1, "连接请求"),    // 完成
+	CONNACK(2, "确认连接请求"), // 完成
 	PUBLISH(3, "发布消息"),
 	PUBACK(4, "发布确认"),
 	PUBREC(5, "发布收到（QoS 2，第一步）"),
 	PUBREL(6, "发布释放（QoS 2，第二步）"),
 	PUBCOMP(7, "发布完成（QoS 2，第三步）"),
-	SUBSCRIBE(8, "订阅主题"),
-	SUBACK(9, "订阅确认"),
-	UNSUBSCRIBE(10, "取消订阅"),
-	UNSUBACK(11, "取消订阅确认"),
+	SUBSCRIBE(8, "订阅主题"),    // 完成
+	SUBACK(9, "订阅确认"),        // 完成
+	UNSUBSCRIBE(10, "取消订阅"),    // 完成
+	UNSUBACK(11, "取消订阅确认"),    // 完成
 	PINGREQ(12, "心跳请求"),
 	PINGRESP(13, "心跳响应"),
 	DISCONNECT(14, "断开连接"),
-	AUTH(15, "鉴权"),
+	AUTH(15, "鉴权(保留,非MQTT协议要求)"),
 	;
 
 	MessageType(Integer code, String desc) {

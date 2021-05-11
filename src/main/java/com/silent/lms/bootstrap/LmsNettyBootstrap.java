@@ -37,7 +37,7 @@ public class LmsNettyBootstrap {
 	}
 
 	public ChannelFuture bootstrapServer() {
-		TcpListener tcpListener = new TcpListener(18081, "0.0.0.0");
+		TcpListener tcpListener = new TcpListener(1808, "0.0.0.0");
 		return buildServer(tcpListener);
 	}
 

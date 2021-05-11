@@ -23,6 +23,9 @@ public interface ChannelHandlerNames {
 
     String MQTT_SUBSCRIBE_HANDLER = "mqtt_subscribe_handler";
 
+    String MQTT_PINGREQ_HANDLER = "mqtt_pingreq_handler";
+    String MQTT_UNSUBSCRIBE_HANDLER = "mqtt_unsubscribe_handler";
+
 
     /* *************
      *   Outgoing  *

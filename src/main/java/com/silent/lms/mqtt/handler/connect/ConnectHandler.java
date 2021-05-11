@@ -6,11 +6,13 @@ import com.silent.lms.mqtt.handler.connack.MqttConnacker;
 import com.silent.lms.mqtt.message.connack.Connack;
 import com.silent.lms.mqtt.message.connack.MqttConnAckReturnCode;
 import com.silent.lms.mqtt.message.connect.Connect;
-import io.netty.channel.*;
+import com.silent.lms.util.ChannelUtils;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.log4j.Log4j2;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
 /**
@@ -42,11 +44,12 @@ public class ConnectHandler extends SimpleChannelInboundHandler<Connect> impleme
 		// TODO 持久化
 
 		//
-		connectSuccessful(ctx,connect);
+		log.info("Client IP {} 连接完成", ChannelUtils.getChannelIP(ctx.channel()).or("UNKNOWN"));
+		connectSuccessful(ctx, connect);
 	}
 
 	private void connectSuccessful(final @NotNull ChannelHandlerContext ctx,
-								   final @NotNull Connect connect){
+								   final @NotNull Connect connect) {
 		mqttConnacker.connackSuccess(ctx, new Connack(MqttConnAckReturnCode.ACCEPTED, false));
 	}
 

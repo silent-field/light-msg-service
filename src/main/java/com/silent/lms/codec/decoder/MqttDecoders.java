@@ -23,11 +23,11 @@ public class MqttDecoders {
 //                        final @NotNull MqttPubcompDecoder mqttPubcompDecoder,
 //                        final @NotNull MqttPubrelDecoder mqttPubrelDecoder,
 //                        final @NotNull MqttDisconnectDecoder mqttDisconnectDecoder,
-                        final @NotNull MqttSubscribeDecoder mqttSubscribeDecoder
-//                        final @NotNull MqttUnsubscribeDecoder mqttUnsubscribeDecoder,
+                        final @NotNull MqttSubscribeDecoder mqttSubscribeDecoder,
+                        final @NotNull MqttUnsubscribeDecoder mqttUnsubscribeDecoder,
 //                        final @NotNull MqttSubackDecoder mqttSubackDecoder,
 //                        final @NotNull MqttUnsubackDecoder mqttUnsubackDecoder,
-//                        final @NotNull MqttPingreqDecoder mqttPingreqDecoder
+                        final @NotNull MqttPingReqDecoder mqttPingreqDecoder
     ) {
 
         mqttDecoder = new MqttDecoder[16];
@@ -39,8 +39,8 @@ public class MqttDecoders {
 //        mqttDecoder[MessageType.PUBREL.getCode()] = mqttPubrelDecoder;
 //        mqttDecoder[MessageType.PUBCOMP.getCode()] = mqttPubcompDecoder;
         mqttDecoder[MessageType.SUBSCRIBE.getCode()] =  mqttSubscribeDecoder;
-//        mqttDecoder[MessageType.UNSUBSCRIBE.getCode()] = mqttUnsubscribeDecoder;
-//        mqttDecoder[MessageType.PINGREQ.getCode()] = mqttPingreqDecoder;
+        mqttDecoder[MessageType.UNSUBSCRIBE.getCode()] = mqttUnsubscribeDecoder;
+        mqttDecoder[MessageType.PINGREQ.getCode()] = mqttPingreqDecoder;
 //        mqttDecoder[MessageType.DISCONNECT.getCode()] = mqttDisconnectDecoder;
 
     }

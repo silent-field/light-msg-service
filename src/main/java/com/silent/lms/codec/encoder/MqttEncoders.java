@@ -5,7 +5,9 @@ import com.silent.lms.annotations.Nullable;
 import com.silent.lms.mqtt.handler.disconnect.MqttServerDisconnector;
 import com.silent.lms.mqtt.message.Message;
 import com.silent.lms.mqtt.message.connack.Connack;
+import com.silent.lms.mqtt.message.pingresp.PingResp;
 import com.silent.lms.mqtt.message.suback.Suback;
+import com.silent.lms.mqtt.message.unsuback.Unsuback;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.log4j.Log4j2;
@@ -28,13 +30,12 @@ public class MqttEncoders {
 //    private final @NotNull MqttPubrelEncoder pubrelEncoder;
 //    private final @NotNull MqttPubcompEncoder pubcompEncoder;
 	private final @NotNull MqttSubackEncoder subackEncoder;
-//    private final @NotNull MqttUnsubackEncoder unsubackEncoder;
+    private final @NotNull MqttUnsubackEncoder unsubackEncoder;
 //    private final @NotNull MqttPublishEncoder publishEncoder;
 //    private final @NotNull MqttSubscribeEncoder subscribeEncoder;
 //    private final @NotNull MqttUnsubscribeEncoder unsubscribeEncoder;
 //    private final @NotNull MqttDisconnectEncoder disconnectEncoder;
-//    private final @NotNull MqttConnectEncoder connectEncoder;
-//    private final @NotNull MqttPingrespEncoder pingrespEncoder;
+    private final @NotNull MqttPingRespEncoder pingRespEncoder;
 
 	@Inject
 	public MqttEncoders(final @NotNull MqttServerDisconnector mqttServerDisconnector) {
@@ -44,13 +45,12 @@ public class MqttEncoders {
 //        this.pubrelEncoder = new MqttPubrelEncoder();
 //        this.pubcompEncoder = new MqttPubcompEncoder();
 		this.subackEncoder = new MqttSubackEncoder(mqttServerDisconnector);
-//        this.unsubackEncoder = new MqttUnsubackEncoder();
+        this.unsubackEncoder = new MqttUnsubackEncoder();
 //        this.publishEncoder = new MqttPublishEncoder();
 //        this.subscribeEncoder = new MqttSubscribeEncoder();
 //        this.unsubscribeEncoder = new MqttUnsubscribeEncoder();
 //        this.disconnectEncoder = new MqttDisconnectEncoder();
-//        this.connectEncoder = new MqttConnectEncoder();
-//        this.pingrespEncoder = new MqttPingrespEncoder();
+        this.pingRespEncoder = new MqttPingRespEncoder();
 
 	}
 
@@ -59,13 +59,15 @@ public class MqttEncoders {
 			return connackEncoder;
 		}else if (msg instanceof Suback) {
             return subackEncoder;
+        }else if (msg instanceof Unsuback) {
+            return unsubackEncoder;
+        } else if (msg instanceof PingResp) {
+            return pingRespEncoder;
         }
 //        if (msg instanceof PUBLISH) {
 //            return publishEncoder;
 //        }
-//        else if (msg instanceof PINGRESP) {
-//            return pingrespEncoder;
-//        } else if (msg instanceof PUBACK) {
+//         else if (msg instanceof PUBACK) {
 //            return pubackEncoder;
 //        } else if (msg instanceof PUBREC) {
 //            return pubrecEncoder;
@@ -77,8 +79,6 @@ public class MqttEncoders {
 //            return connackEncoder;
 //        } else if (msg instanceof SUBACK) {
 //            return subackEncoder;
-//        } else if (msg instanceof UNSUBACK) {
-//            return unsubackEncoder;
 //        } else if (msg instanceof SUBSCRIBE) {
 //            return subscribeEncoder;
 //        } else if (msg instanceof UNSUBSCRIBE) {

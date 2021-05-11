@@ -7,7 +7,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 public abstract class FixedSizeMessageEncoder<T extends Message> extends MessageToByteEncoder<T> {
-
     @Override
     protected @NotNull ByteBuf allocateBuffer(final ChannelHandlerContext ctx, final T msg, final boolean preferDirect) {
         final int bufferSize = bufferSize(ctx, msg);
