@@ -44,6 +44,7 @@ public abstract class AbstractChannelInitializer extends ChannelInitializer<Chan
 
 		ch.pipeline().addLast(MQTT_PINGREQ_HANDLER, channelDependencies.getPingRequestHandler());
 		ch.pipeline().addLast(MQTT_UNSUBSCRIBE_HANDLER, channelDependencies.getUnsubscribeHandler());
+		ch.pipeline().addLast(MQTT_DISCONNECT_HANDLER, channelDependencies.getDisconnectHandler());
 
 		addNoConnectIdleHandler(ch);
 

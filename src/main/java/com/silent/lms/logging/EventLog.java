@@ -40,6 +40,14 @@ public class EventLog {
 		logClientConnected.debug("Client ID: {}, IP: {}, Clean Start: {} 已连接.", valueOrUnknown(clientId), valueOrUnknown(ip), valueOrUnknown(cleanStart));
 	}
 
+	public void clientDisconnected(@NotNull final Channel channel) {
+		channel.attr(ChannelAttributes.DISCONNECT_EVENT_LOGGED).set(true);
+		final String clientId = channel.attr(ChannelAttributes.CLIENT_ID).get();
+		final String ip = ChannelUtils.getChannelIP(channel).orNull();
+		log.trace("Client {} 断开连接", clientId);
+		logClientDisconnected.debug("Client ID: {}, IP: {} 断开连接", valueOrUnknown(clientId), valueOrUnknown(ip));
+	}
+
 	@NotNull
 	private String valueOrUnknown(@Nullable final Object object) {
 		return object != null ? object.toString() : "UNKNOWN";

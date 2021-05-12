@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class UnsubscribeHandler extends SimpleChannelInboundHandler<Unsubscribe> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Unsubscribe msg) throws Exception {
-		SubscribeHolder subscribeHolder = SubscribeHolder.instance();
+		SubscribeHolder subscribeHolder = SubscribeHolder.instance;
 		subscribeHolder.unsubscribe(ctx.channel(), msg);
 
 		List<MqttUnsubAckReasonCode> reasonCodes = msg.getTopics().stream().map(new Function<String, MqttUnsubAckReasonCode>() {

@@ -97,6 +97,37 @@ public class SubscribeHolder {
 		}
 	}
 
+	public void removeSubscriber(Channel channel){
+		final String clientId = channel.attr(ChannelAttributes.CLIENT_ID).get();
+		ChannelSubscribe channelSubscribe = clientId2Channel.get(clientId);
+
+		if(null != channelSubscribe){
+			Collection<String> topics = channelSubscribe.getTopics().keySet();
+			for (String topic : topics) {
+				final Lock topicWriteLock = topicLock.get(topic).writeLock();
+				topicWriteLock.lock();
+				try {
+					Set<String> current;
+					if ((current = topic2ClientIds.get(topic)) != null) {
+						current.remove(clientId);
+					}
+				} finally {
+					topicWriteLock.unlock();
+				}
+			}
+
+			final Lock clientWriteLock = clientIdLock.get(clientId).writeLock();
+			clientWriteLock.lock();
+			try {
+				clientId2Channel.remove(clientId);
+			} finally {
+				clientWriteLock.unlock();
+			}
+		}
+
+		log.info("client : {} 断开连接，取消所有订阅", clientId);
+	}
+
 	// ----------------------------------------------
 	@Data
 	@Builder
@@ -127,12 +158,10 @@ public class SubscribeHolder {
 		topicLock = Striped.readWriteLock(32);
 	}
 
+	public static SubscribeHolder instance = InstanceHolder.instance;
+
 	private static class InstanceHolder {
 		private static final SubscribeHolder instance = new SubscribeHolder();
 	}
 
-	public static SubscribeHolder instance() {
-		SubscribeHolder subscribeHolder = InstanceHolder.instance;
-		return subscribeHolder;
-	}
 }

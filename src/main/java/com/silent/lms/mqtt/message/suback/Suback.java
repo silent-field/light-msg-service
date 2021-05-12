@@ -3,7 +3,6 @@ package com.silent.lms.mqtt.message.suback;
 import com.google.common.collect.ImmutableList;
 import com.silent.lms.mqtt.message.AbstractMessageWithID;
 import com.silent.lms.mqtt.message.MessageType;
-import com.silent.lms.mqtt.message.subscribe.Mqtt3Subscribe;
 import com.silent.lms.mqtt.reason.MqttSubAckReasonCode;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @description:
  */
-public class Suback extends AbstractMessageWithID implements Mqtt3SUBACK {
+public class Suback extends AbstractMessageWithID implements Mqtt3Suback {
 	private ImmutableList<MqttSubAckReasonCode> reasonCodes;
 	public Suback(final int packetId, List<MqttSubAckReasonCode> reasonCodes){
 		super(packetId);

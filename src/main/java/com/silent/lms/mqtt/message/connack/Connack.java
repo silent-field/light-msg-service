@@ -10,7 +10,7 @@ import com.silent.lms.mqtt.message.MessageType;
  * @date 2021/5/3
  * @description:
  */
-public class Connack extends AbstractMessageWithID implements Mqtt3CONNACK {
+public class Connack extends AbstractMessageWithID implements Mqtt3Connack {
     private final boolean sessionPresent;
     private final MqttConnAckReturnCode returnCode;
 

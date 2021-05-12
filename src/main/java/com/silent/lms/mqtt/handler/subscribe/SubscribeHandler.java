@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class SubscribeHandler extends SimpleChannelInboundHandler<Subscribe> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Subscribe msg) throws Exception {
-		SubscribeHolder subscribeHolder = SubscribeHolder.instance();
+		SubscribeHolder subscribeHolder = SubscribeHolder.instance;
 		subscribeHolder.subscribe(ctx.channel(), msg);
 
 		List<MqttSubAckReasonCode> reasonCodes = msg.getTopics().stream().map(new Function<Topic, MqttSubAckReasonCode>() {

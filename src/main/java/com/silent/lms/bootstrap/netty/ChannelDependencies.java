@@ -5,6 +5,7 @@ import com.silent.lms.codec.decoder.MqttDecoders;
 import com.silent.lms.codec.encoder.MQTTMessageEncoder;
 import com.silent.lms.mqtt.handler.connack.connect.NoConnectIdleHandler;
 import com.silent.lms.mqtt.handler.connect.ConnectHandler;
+import com.silent.lms.mqtt.handler.disconnect.DisconnectHandler;
 import com.silent.lms.mqtt.handler.disconnect.MqttServerDisconnector;
 import com.silent.lms.mqtt.handler.ping.PingRequestHandler;
 import com.silent.lms.mqtt.handler.subscribe.SubscribeHandler;
@@ -55,6 +56,10 @@ public class ChannelDependencies {
 	@NotNull
 	private final PingRequestHandler pingRequestHandler;
 
+	@Getter
+	@NotNull
+	private final DisconnectHandler disconnectHandler;
+
 	@Inject
 	public ChannelDependencies(final @NotNull ChannelGroup channelGroup,
 							   final @NotNull MqttDecoders mqttDecoders,
@@ -64,7 +69,8 @@ public class ChannelDependencies {
 							   final @NotNull MqttServerDisconnector mqttServerDisconnector,
 							   final @NotNull Provider<SubscribeHandler> subscribeHandlerProvider,
 							   final @NotNull Provider<UnsubscribeHandler> unsubscribeHandlerProvider,
-							   final @NotNull PingRequestHandler pingRequestHandler
+							   final @NotNull PingRequestHandler pingRequestHandler,
+							   final @NotNull DisconnectHandler disconnectHandler
 	) {
 		this.channelGroup = channelGroup;
 		this.mqttDecoders = mqttDecoders;
@@ -75,6 +81,7 @@ public class ChannelDependencies {
 		this.subscribeHandlerProvider = subscribeHandlerProvider;
 		this.unsubscribeHandlerProvider = unsubscribeHandlerProvider;
 		this.pingRequestHandler = pingRequestHandler;
+		this.disconnectHandler = disconnectHandler;
 	}
 
 	@NotNull

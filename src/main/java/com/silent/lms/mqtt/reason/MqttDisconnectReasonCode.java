@@ -9,6 +9,7 @@ import com.silent.lms.annotations.NotNull;
  * @description:
  */
 public enum MqttDisconnectReasonCode implements MqttReasonCode {
+	NORMAL_DISCONNECTION(0x00),
 	PROTOCOL_ERROR(MqttCommonReasonCode.PROTOCOL_ERROR),
 	MALFORMED_PACKET(MqttCommonReasonCode.MALFORMED_PACKET),
 	PACKET_TOO_LARGE(MqttCommonReasonCode.PACKET_TOO_LARGE),
